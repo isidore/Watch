@@ -57,10 +57,29 @@
         
         <footer class="watch-footer">
             <div class="gears">
-                <div class="gear gear-1"></div>
-                <div class="gear gear-2"></div>
+                <button id="alarmGear" class="gear gear-1" title="Set Alarm/Timer">
+                    <span class="gear-icon">⏰</span>
+                </button>
+                <button id="formatGear" class="gear gear-2" title="Toggle 12/24 Hour">
+                    <span class="gear-icon">24</span>
+                </button>
             </div>
         </footer>
+        
+        <!-- Alarm Modal -->
+        <div id="alarmModal" class="modal hidden">
+            <div class="modal-content">
+                <h3>⏰ Set Alarm</h3>
+                <div class="time-input">
+                    <input type="time" id="alarmTime" />
+                </div>
+                <div class="modal-buttons">
+                    <button id="setAlarm" class="modal-btn">Set Alarm</button>
+                    <button id="cancelAlarm" class="modal-btn secondary">Cancel</button>
+                </div>
+                <div id="activeAlarms" class="active-alarms"></div>
+            </div>
+        </div>
     </div>
     
     <script src="js/clock.js"></script>
