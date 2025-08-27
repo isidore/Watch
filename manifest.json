@@ -1,0 +1,17 @@
+{
+  "name": "Steampunk Watch",
+  "short_name": "SteamWatch",
+  "description": "A steampunk-themed digital and analog clock web application",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#B8860B",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9IiMxYTFhMWEiLz4KPGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iNzAiIHN0cm9rZT0iI0I4ODYwQiIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIi8+CjxsaW5lIHgxPSI5NiIgeTE9IjQ2IiB4Mj0iOTYiIHkyPSI3NiIgc3Ryb2tlPSIjQjg4NjBCIiBzdHJva2Utd2lkdGg9IjMiLz4KPGxpbmUgeDE9Ijk2IiB5MT0iNDYiIHgyPSI5NiIgeTI9Ijg2IiBzdHJva2U9IiNCODg2MEIiIHN0cm9rZS13aWR0aD0iMiIvPgo8Y2lyY2xlIGN4PSI5NiIgY3k9Ijk2IiByPSI0IiBmaWxsPSIjRDRBRjM3Ii8+CjwvdXZnPgo=",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}

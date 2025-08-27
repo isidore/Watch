@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+    --brass: #B8860B;
+    --copper: #B87333;
+    --bronze: #CD7F32;
+    --dark-brass: #8B6914;
+    --steam-bg: #1a1a1a;
+    --gear-color: #D4AF37;
+    --shadow: rgba(0, 0, 0, 0.8);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cinzel', serif;
+    background: linear-gradient(135deg, var(--steam-bg) 0%, #2c2c2c 100%);
+    color: var(--brass);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.watch-container {
+    background: radial-gradient(circle, #2a2a2a 0%, var(--steam-bg) 100%);
+    border: 3px solid var(--brass);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 
+        0 0 30px var(--brass),
+        inset 0 0 20px rgba(184, 134, 11, 0.1);
+    max-width: 400px;
+    width: 90vw;
+    text-align: center;
+    position: relative;
+}
+
+.watch-header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px var(--brass);
+}
+
+.toggle-btn {
+    background: linear-gradient(145deg, var(--brass), var(--dark-brass));
+    border: 2px solid var(--copper);
+    color: var(--steam-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.toggle-btn:hover {
+    background: linear-gradient(145deg, var(--copper), var(--bronze));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow);
+}
+
+.clock-display {
+    margin: 2rem 0;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.digital-clock {
+    font-family: 'Orbitron', monospace;
+}
+
+.time-display {
+    font-size: 3rem;
+    font-weight: 900;
+    text-shadow: 0 0 20px var(--brass);
+    margin-bottom: 0.5rem;
+}
+
+.separator {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
+
+.date-display {
+    font-size: 1.2rem;
+    color: var(--copper);
+    font-family: 'Cinzel', serif;
+}
+
+.analog-clock {
+    position: relative;
+}
+
+.clock-face {
+    width: 200px;
+    height: 200px;
+    border: 4px solid var(--brass);
+    border-radius: 50%;
+    position: relative;
+    background: radial-gradient(circle, #333 0%, var(--steam-bg) 100%);
+    box-shadow: 
+        0 0 20px var(--brass),
+        inset 0 0 20px rgba(184, 134, 11, 0.2);
+    margin: 0 auto;
+}
+
+.hour-markers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.marker {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform-origin: 0 95px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--brass);
+    text-shadow: 0 0 5px var(--brass);
+}
+
+.hands {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hand {
+    position: absolute;
+    background: var(--brass);
+    transform-origin: bottom center;
+    border-radius: 2px;
+    box-shadow: 0 0 5px var(--brass);
+}
+
+.hour-hand {
+    width: 4px;
+    height: 60px;
+    top: -60px;
+    left: -2px;
+}
+
+.minute-hand {
+    width: 3px;
+    height: 80px;
+    top: -80px;
+    left: -1.5px;
+}
+
+.second-hand {
+    width: 1px;
+    height: 90px;
+    top: -90px;
+    left: -0.5px;
+    background: var(--copper);
+    box-shadow: 0 0 3px var(--copper);
+}
+
+.center-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--gear-color);
+    border-radius: 50%;
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    box-shadow: 0 0 10px var(--gear-color);
+}
+
+.hidden {
+    display: none;
+}
+
+.watch-footer {
+    margin-top: 1rem;
+}
+
+.gears {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.gear {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--gear-color);
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 10s linear infinite;
+}
+
+.gear::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border: 2px solid var(--copper);
+    border-radius: 50%;
+}
+
+.gear-1 {
+    animation-direction: normal;
+}
+
+.gear-2 {
+    animation-direction: reverse;
+    animation-duration: 8s;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+    .watch-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .watch-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .time-display {
+        font-size: 2.5rem;
+    }
+    
+    .clock-face {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .marker {
+        transform-origin: 0 85px;
+        font-size: 0.9rem;
+    }
+}
