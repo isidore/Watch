@@ -8,6 +8,11 @@ A beautiful steampunk-themed digital and analog clock web application designed f
 - **GitHub Pages**: https://isidore.github.io/Watch/
 - **Repository**: https://github.com/isidore/Watch
 
+### 📱 Quick Access QR Code
+Scan with your phone to open the live app:
+
+<img src="assets/images/qr-code.png" alt="QR Code for Steampunk Watch" width="200" height="200">
+
 ## ✨ Features
 
 - **Dual Display Modes**: Toggle between digital and analog clock views
