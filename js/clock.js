@@ -11,6 +11,8 @@ class SteampunkClock {
         this.bindEvents();
         this.startClock();
         this.loadAlarms();
+        // Ensure modal starts hidden
+        this.alarmModal.classList.add('hidden');
     }
 
     bindElements() {
@@ -39,12 +41,46 @@ class SteampunkClock {
 
     bindEvents() {
         this.toggleBtn.addEventListener('click', () => this.toggleView());
-        this.alarmGear.addEventListener('click', () => this.openAlarmModal());
-        this.formatGear.addEventListener('click', () => this.toggleTimeFormat());
-        this.setAlarmBtn.addEventListener('click', () => this.setAlarm());
-        this.cancelAlarmBtn.addEventListener('click', () => this.closeAlarmModal());
+        
+        // Gear button events
+        this.alarmGear.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.openAlarmModal();
+        });
+        
+        this.formatGear.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.toggleTimeFormat();
+        });
+        
+        // Modal button events
+        this.setAlarmBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.setAlarm();
+        });
+        
+        this.cancelAlarmBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.closeAlarmModal();
+        });
+        
+        // Modal backdrop click
         this.alarmModal.addEventListener('click', (e) => {
-            if (e.target === this.alarmModal) this.closeAlarmModal();
+            if (e.target === this.alarmModal) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.closeAlarmModal();
+            }
+        });
+        
+        // Prevent modal content clicks from closing modal
+        const modalContent = this.alarmModal.querySelector('.modal-content');
+        modalContent.addEventListener('click', (e) => {
+            e.stopPropagation();
         });
     }
 
@@ -110,11 +146,109 @@ class SteampunkClock {
         }
     }
 
+    toggleTimeFormat() {
+        this.is24Hour = !this.is24Hour;
+        const icon = this.formatGear.querySelector('.gear-icon');
+        icon.textContent = this.is24Hour ? '24' : '12';
+        localStorage.setItem('is24Hour', this.is24Hour);
+    }
+
+    openAlarmModal() {
+        this.alarmModal.classList.remove('hidden');
+        this.renderActiveAlarms();
+    }
+
+    closeAlarmModal() {
+        this.alarmModal.classList.add('hidden');
+        this.alarmTimeInput.value = '';
+    }
+
+    setAlarm() {
+        const timeValue = this.alarmTimeInput.value;
+        if (!timeValue) return;
+
+        const [hours, minutes] = timeValue.split(':').map(Number);
+        const alarmId = Date.now();
+        
+        this.alarms.push({
+            id: alarmId,
+            hours,
+            minutes,
+            time: timeValue
+        });
+
+        this.saveAlarms();
+        this.renderActiveAlarms();
+        this.alarmTimeInput.value = '';
+        this.closeAlarmModal();
+    }
+
+    deleteAlarm(alarmId) {
+        this.alarms = this.alarms.filter(alarm => alarm.id !== alarmId);
+        this.saveAlarms();
+        this.renderActiveAlarms();
+    }
+
+    renderActiveAlarms() {
+        this.activeAlarmsEl.innerHTML = '';
+        
+        this.alarms.forEach(alarm => {
+            const alarmDiv = document.createElement('div');
+            alarmDiv.className = 'alarm-item';
+            alarmDiv.innerHTML = `
+                <span class="alarm-time">${alarm.time}</span>
+                <button class="alarm-delete" onclick="clock.deleteAlarm(${alarm.id})">×</button>
+            `;
+            this.activeAlarmsEl.appendChild(alarmDiv);
+        });
+    }
+
+    checkAlarms(currentHours, currentMinutes) {
+        this.alarms.forEach(alarm => {
+            if (alarm.hours === currentHours && alarm.minutes === currentMinutes) {
+                this.triggerAlarm(alarm);
+            }
+        });
+    }
+
+    triggerAlarm(alarm) {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed; top: 20px; right: 20px;
+            background: linear-gradient(135deg, #B8860B, #8B6914);
+            border: 3px solid #B87333; border-radius: 15px;
+            padding: 1rem; color: #1a1a1a;
+            font-family: 'Cinzel', serif; font-weight: bold;
+            z-index: 2000; box-shadow: 0 0 30px #B8860B;
+        `;
+        notification.innerHTML = `⏰ Alarm: ${alarm.time}`;
+        
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 5000);
+    }
+
+    saveAlarms() {
+        localStorage.setItem('alarms', JSON.stringify(this.alarms));
+    }
+
+    loadAlarms() {
+        const saved = localStorage.getItem('alarms');
+        if (saved) this.alarms = JSON.parse(saved);
+        
+        const saved24Hour = localStorage.getItem('is24Hour');
+        if (saved24Hour) {
+            this.is24Hour = saved24Hour === 'true';
+            const icon = this.formatGear.querySelector('.gear-icon');
+            icon.textContent = this.is24Hour ? '24' : '12';
+        }
+    }
+
     padZero(num) {
         return num.toString().padStart(2, '0');
     }
 }
 
+let clock;
 document.addEventListener('DOMContentLoaded', () => {
-    new SteampunkClock();
+    clock = new SteampunkClock();
 });
